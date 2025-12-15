@@ -8,4 +8,9 @@ class Coba extends BaseController
     {
         echo 'Ini Controller coba method index';
     }
+
+    public function about()
+    {
+        echo 'Halo, nama saya ';
+    }
 }
