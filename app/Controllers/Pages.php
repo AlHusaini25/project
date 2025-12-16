@@ -30,16 +30,23 @@ class Pages extends BaseController
     public function contact() 
     {
          $data = [
-            'title' =>'Contact | AlFachri'
-            'alamat' => [
+            'title' =>'Contact | AlFachri',
+            'alamat' => [    
+                [
+                
                 'tipe' => 'Rumah',
                 'alamat' => 'Jl. Serma Marjuki No. 12',
                 'kota' => 'Bekasi'
-            ],
-         [
-            'tipe' => 'Sekolah'
-            'alamat' => 'Jl'
-         ]
+                ],
+                [
+                
+            
+                'tipe' => 'Sekolah',
+                'alamat' => 'Jl. Agus Salim',
+                'kota' => 'Bekasi'
+                ]
+            ]
+            
         ];  
 
            return view ('pages/contact', $data);

@@ -1,14 +1,14 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h1>About Me</h1>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit a neque, minus debitis adipisci et tempora sit, reiciendis praesentium fugit unde inventore molestias assumenda, fugiat eaque ullam quibusdam! Id, fuga!</p>
-
+<section id="about" class="py-5">
+        <div class="container text-center">
+            <img src="<?= base_url('img/alkecik.JPG') ?>" alt="Foto Profil" class="w-25 h-25 mb-3 rounded-circle">
+            <h2>Tentang Saya</h2>
+            <p class="mt-3 text-muted">
+                Saya adalah seorang pelajar pengembang web yang berfokus pada pembuatan website responsif
+                menggunakan teknologi modern seperti HTML, CSS, JavaScript, dan Bootstrap di SMK SYAFI'I AKROM.
+            </p>
         </div>
-    </div>
-</div>
-
+    </section>
 <?= $this->endSection() ?>
