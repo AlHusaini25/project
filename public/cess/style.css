@@ -7,8 +7,18 @@ body {
 header {
     background: linear-gradient(135deg, #000000, #222);
     color: white;
-    padding: 100px 0;
     text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+img {
+    height: 50%;
+    width: 50%;
 }
 
 #about img {
@@ -21,4 +31,8 @@ footer {
     color: #bbb;
     padding: 20px 0;
     text-align: center;
+}
+
+.table > tbody > tr > * {
+    vertical-align: middl;
 }

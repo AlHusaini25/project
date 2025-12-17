@@ -14,24 +14,19 @@
     </tr>
   </thead>
   <tbody>
+
+  <?php $i = 1; ?>
+
+    <?php foreach ($project as $p) : ?>
+
     <tr>
-      <th scope="row">1</th>
-      <td><img src="img/webgewh.JPG" alt="" class="w-50 h-50"></td>
-      <td>Web Pertama</td>
+      <th scope="row"><?= $i ++ ?></th>
+      <td><img src="/img/<?= $p['gambar']; ?>" class=""></td>
+      <td><?= $p['nama_project']; ?></td>
       <td><a href="" class="btn btn-success">Detail</a></td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>John</td>
-      <td>Doe</td>
-      <td>@social</td>
-    </tr>
+
+    <?php endforeach; ?>
   </tbody>
 </table>
         </div>
