@@ -9,7 +9,9 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Pages::index');
 $routes->get('pages/about', 'Pages::about');
 $routes->get('pages/contact', 'Pages::contact');
-$routes->get('/project', 'project::index');
+$routes->get('/project', 'Project::index');
+$routes->get('/project/(:segment)', 'Project::detail/$1');
+
 
 
 
