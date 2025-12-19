@@ -14,9 +14,9 @@ class Project extends BaseController
         $this->projectModel = new ProjectModel();
     }
 
-    // =====================
+    
     // HALAMAN LIST PROJECT
-    // =====================
+    
     public function index()
     {
         return view('project/index', [
@@ -25,9 +25,9 @@ class Project extends BaseController
         ]);
     }
 
-    // =====================
+    
     // HALAMAN DETAIL PROJECT
-    // =====================
+    
     public function detail($slug)
     {
         $project = $this->projectModel
@@ -40,7 +40,8 @@ class Project extends BaseController
 
         return view('project/detail', [
             'title'   => $project['nama_project'],
-            'project' => $project
+            'project' => $project,
+            'deskripsi' => $project['deskripsi'] ?? 'Tidak ada deskripsi',
         ]);
     }
 }   

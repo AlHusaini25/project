@@ -21,6 +21,13 @@ img {
     width: 50%;
 }
 
+.gambar {
+    height: 100%;
+    width: 100%;
+}
+
+
+
 #about img {
     max-width: 200px;
     border-radius: 50%;
@@ -36,3 +43,4 @@ footer {
 .table > tbody > tr > * {
     vertical-align: middl;
 }
+
