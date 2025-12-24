@@ -40,16 +40,17 @@ class Project extends BaseController
     public function save()
     {
         $rules = [
-            'nama_project' => 'required|min_length[3]|max_length[255]|is_unique[project.nama_project]',
-            'deskripsi'    => 'required|max_length[1000]', // wajib diisi
-            'gambar'       => 'permit_empty|is_image[gambar]|max_size[gambar,1024]'
+            'nama_project' => 'required|min_length[3]',
+            'deskripsi'    => 'required|min_length[5]',
+            'gambar'       => 'uploaded[gambar]|max_size[gambar,2048]|is_image[gambar]|mime_in[gambar,image/jpg,image/jpeg,image/png]'
         ];
 
-        if (!$this->validate($rules)) {
+        if (! $this->validate($rules)) {
             return redirect()->to('/project/create')
-                ->withInput()
-                ->with('validation', $this->validator);
+                ->withInput() // biar data lama tetap di form
+                ->with('validation', $this->validator); // kirim validator ke view
         }
+
 
         $nama_project = $this->request->getVar('nama_project');
 
@@ -161,18 +162,12 @@ class Project extends BaseController
             ],
         ];
 
-        // =====================
-        // JALANKAN VALIDASI
-        // =====================
         if (! $this->validate($rules)) {
             return redirect()->to("/project/edit/$id")
                 ->withInput()
                 ->with('validation', $this->validator);
         }
 
-        // =====================
-        // UPLOAD GAMBAR (OPSIONAL)
-        // =====================
         $file = $this->request->getFile('gambar');
 
         if ($file && $file->isValid() && ! $file->hasMoved()) {
@@ -187,9 +182,7 @@ class Project extends BaseController
             $fileName = $project['gambar'];
         }
 
-        // =====================
-        // UPDATE DATABASE
-        // =====================
+
         $namaProject = $this->request->getVar('nama_project');
 
         $this->projectModel->update($id, [

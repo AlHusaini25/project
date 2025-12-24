@@ -46,6 +46,12 @@
                 <p class="mt-2">Gambar saat ini:</p>
                 <img src="<?= base_url('uploads/' . $project['gambar']); ?>" width="150">
             <?php endif; ?>
+            <?php if ($validation->hasError('gambar')) : ?>
+                <div class="text-danger mt-1">
+                    <?= $validation->getError('gambar'); ?>
+                </div>
+            <?php endif; ?>
+
         </div>
 
         <button type="submit" class="btn btn-primary">Ubah Data</button>

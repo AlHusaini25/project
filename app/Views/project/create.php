@@ -38,14 +38,15 @@
 
             <div class="mb-3">
                 <label for="gambar" class="form-label">Gambar</label>
-                <input type="file" name="gambar" class="form-control" id="gambar" value="<?= old('gambar'); ?>"> <?= ($validation && $validation->hasError('gambar')) ? 'is-invalid' : ''; ?>
+                <input type="file"
+                    name="gambar"
+                    class="form-control <?= ($validation && $validation->hasError('gambar')) ? 'is-invalid' : ''; ?>"
+                    id="gambar">
+
                 <div class="invalid-feedback">
-                    <?= $validation->getError('gambar') ?>
+                    <?= $validation->getError('gambar'); ?>
                 </div>
 
-                <?php if (!empty($project['gambar'])): ?>
-                    <img src="<?= base_url('writable/uploads/' . $project['gambar']); ?>" width="150" class="mt-2">
-                <?php endif; ?>
             </div>
 
 
