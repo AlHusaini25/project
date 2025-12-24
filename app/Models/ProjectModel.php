@@ -6,8 +6,13 @@ use CodeIgniter\Model;
 
 class ProjectModel extends Model
 {
+    protected $table      = 'project';
+    protected $primaryKey = 'id'; 
 
-    protected $table = 'project';
-    protected $useTimestamps = false;
-    protected $allowedFields = ['judul', 'slug', 'deskripsi', 'gambar'];
+    protected $allowedFields = [
+        'nama_project',
+        'slug',
+        'deskripsi',
+        'gambar'
+    ];
 }

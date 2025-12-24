@@ -6,8 +6,8 @@
     <div class="col">
       <a href="/project/create" class="btn btn-primary mt-3">Tambah Project</a>
       <?php if (session()->getFlashdata('pesan')) : ?>
-        <div class="alert alert-success" role="alert">
-          <?= (session()->getFlashdata('pesan')) ?>
+        <div class="alert alert-success mt-3" role="alert">
+          <?= session()->getFlashdata('pesan'); ?>
         </div>
       <?php endif ?>
       <table class="table">
@@ -27,7 +27,14 @@
 
             <tr>
               <th scope="row"><?= $i++ ?></th>
-              <td><img src="/img/<?= $p['gambar']; ?>" class=""></td>
+              <td>
+                <?php if ($p['gambar']): ?>
+                  <img src="<?= base_url('uploads/' . $p['gambar']) ?>" max-width="100">
+                <?php else: ?>
+                  Tidak ada gambar
+                <?php endif; ?>
+              </td>
+
               <td><?= $p['nama_project']; ?></td>
               <td>
                 <a href="<?= site_url('project/' . $p['slug']); ?>" class="btn btn-success">

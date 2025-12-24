@@ -9,7 +9,7 @@
                                 <div class="card shadow-sm border-0 overflow-hidden">
                                         <div class="row g-0">
                                                 <div class="col-md-6">
-                                                        <img src="<?= base_url('img/' . $project['gambar']); ?>" class="img-fluid h-100 w-100" alt="Web Portofolio" style="object-fit: cover;">
+                                                        <img src="<?= base_url('uploads/' . $project['gambar']); ?>" class="img-fluid h-100 w-100" alt="" style="object-fit: cover;">
                                                 </div>
 
                                                 <div class="col-md-6 d-flex align-items-center">
@@ -21,10 +21,20 @@
                                                                         <?= esc($deskripsi); ?>
                                                                 </p>
 
-                                                                <div class="">
-                                                                        <a href="" class="btn btn-warning">Edit</a>
-                                                                        <a href="" class="btn btn-danger">Delete</a>
+                                                                <div class="container">
+                                                                        <a href="/project/edit/<?= $project['id']; ?>" class="btn btn-warning">Edit</a>
+
+                                                                        <form action="/project/delete/<?= $project['id']; ?>" method="post" class="d-inline">
+                                                                                <?= csrf_field(); ?>
+                                                                                <input type="hidden" name="_method" value="DELETE">
+
+                                                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin?')">
+                                                                                        Hapus
+                                                                                </button>
+                                                                        </form>
+
                                                                 </div>
+
 
                                                                 <div class="mt-4">
                                                                         <a href="<?= base_url('project'); ?>" class="btn btn-outline-secondary">
