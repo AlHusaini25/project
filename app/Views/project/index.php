@@ -4,6 +4,12 @@
 <div class="container">
   <div class="row">
     <div class="col">
+      <a href="/project/create" class="btn btn-primary mt-3">Tambah Project</a>
+      <?php if (session()->getFlashdata('pesan')) : ?>
+        <div class="alert alert-success" role="alert">
+          <?= (session()->getFlashdata('pesan')) ?>
+        </div>
+      <?php endif ?>
       <table class="table">
         <thead>
           <tr>
@@ -24,9 +30,10 @@
               <td><img src="/img/<?= $p['gambar']; ?>" class=""></td>
               <td><?= $p['nama_project']; ?></td>
               <td>
-                <a href="<?= base_url('project/' . $p['slug']); ?>" class="btn btn-success">
+                <a href="<?= site_url('project/' . $p['slug']); ?>" class="btn btn-success">
                   Detail
                 </a>
+
               </td>
 
             </tr>
