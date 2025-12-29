@@ -18,9 +18,21 @@ class Project extends BaseController
     // List semua project
     public function index()
     {
+
+        $keyword = $this->request->getVar('keyword');
+
+        $projectModel = $this->projectModel;
+
+        if ($keyword) {
+            $projectModel->like('nama_project', $keyword);
+        }
+
+        // Gunakan paginate, jangan findAll
         $data = [
-            'title'   => 'Daftar Project',
-            'project' => $this->projectModel->findAll()
+            'title' => 'Daftar Project',
+            'project' => $projectModel->paginate(5, 'project'),
+            'pager' => $projectModel->pager,  // <== ini yang penting
+            'keyword' => $keyword
         ];
 
         return view('project/index', $data);
@@ -41,37 +53,30 @@ class Project extends BaseController
     {
         $rules = [
             'nama_project' => 'required|min_length[3]',
-            'deskripsi'    => 'required|min_length[5]',
-            'gambar'       => 'uploaded[gambar]|max_size[gambar,2048]|is_image[gambar]|mime_in[gambar,image/jpg,image/jpeg,image/png]'
+            'deskripsi'    => 'required',
+            'gambar'       => 'uploaded[gambar]|is_image[gambar]|max_size[gambar,2048]'
         ];
 
         if (! $this->validate($rules)) {
-            return redirect()->to('/project/create')
-                ->withInput() // biar data lama tetap di form
-                ->with('validation', $this->validator); // kirim validator ke view
+            return redirect()->back()->withInput()->with('validation', $this->validator);
         }
 
+        $file = $this->request->getFile('gambar');
+        $fileName = $file->getRandomName();
+        $file->move(FCPATH . 'uploads', $fileName);
 
-        $nama_project = $this->request->getVar('nama_project');
+        $nama = $this->request->getPost('nama_project');
 
-        $fileGambar = $this->request->getFile('gambar');
-        if ($fileGambar && $fileGambar->isValid() && !$fileGambar->hasMoved()) {
-            $fileName = $fileGambar->getRandomName();
-            $fileGambar->move(ROOTPATH . 'public/uploads', $fileName);
-        } else {
-            $fileName = null;
-        }
-
-        $this->projectModel->save([
-            'nama_project' => $nama_project,
-            'slug'         => url_title($nama_project, '-', true),
-            'deskripsi'    => $this->request->getVar('deskripsi'),
+        $this->projectModel->insert([
+            'nama_project' => $nama,
+            'slug'         => url_title($nama, '-', true),
+            'deskripsi'    => $this->request->getPost('deskripsi'),
             'gambar'       => $fileName
         ]);
 
-        session()->setFlashdata('pesan', 'Project berhasil ditambahkan.');
-        return redirect()->to('/project');
+        return redirect()->to('/project')->with('pesan', 'Project berhasil ditambahkan');
     }
+
 
 
 

@@ -4,12 +4,19 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <a href="/project/create" class="btn btn-primary mt-3">Tambah Project</a>
+      <a href="/project/create" class="btn btn-primary mt-3 mb-3">Tambah Project</a>
       <?php if (session()->getFlashdata('pesan')) : ?>
         <div class="alert alert-success mt-3" role="alert">
           <?= session()->getFlashdata('pesan'); ?>
         </div>
       <?php endif ?>
+
+      <form action="" method="get" class="mb-3">
+        <input type="text" name="keyword" placeholder="Cari project..." value="<?= isset($keyword) ? $keyword : '' ?>">
+        <button type="submit" class="btn btn-primary btn-sm">Cari</button>
+        <a href="<?= base_url('project') ?>" class="btn btn-secondary btn-sm">Reset</a>
+      </form>
+
       <table class="table">
         <thead>
           <tr>
@@ -21,9 +28,9 @@
         </thead>
         <tbody>
 
-          <?php $i = 1; ?>
-
+          <?php $i = 1 + (5 * ($pager->getCurrentPage('project') - 1)); ?>
           <?php foreach ($project as $p) : ?>
+
 
             <tr>
               <th scope="row"><?= $i++ ?></th>
@@ -51,4 +58,5 @@
     </div>
   </div>
 </div>
+<?= $pager->links('project', 'bootstrap') ?>
 <?= $this->endSection(); ?>
