@@ -103,9 +103,19 @@ class Project extends BaseController
     public function delete($id = null)
     {
         // Logika hapus data
+        $project = $this->projectModel->find($id);
+    
+     if ($project) {
+        // Hapus file fisik sebelum hapus data di DB
+        if (!empty($project['gambar']) && file_exists(FCPATH . 'uploads/' . $project['gambar'])) {
+            unlink(FCPATH . 'uploads/' . $project['gambar']);
+        }
+        
         $this->projectModel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus.');
-        return redirect()->to('/project');
+    }
+
+    return redirect()->to('/project');
     }
 
     public function edit($id)
@@ -157,12 +167,12 @@ class Project extends BaseController
                     'min_length' => 'Deskripsi minimal 5 karakter',
                 ],
             ],
-            'gambar' => [
-                'rules'  => 'if_exist|max_size[gambar,2048]|is_image[gambar]|mime_in[gambar,image/jpg,image/jpeg,image/png]',
-                'errors' => [
-                    'max_size' => 'Ukuran gambar maksimal 2MB',
-                    'is_image' => 'File harus berupa gambar',
-                    'mime_in'  => 'Format gambar tidak valid',
+           'gambar' => [
+            'rules'  => 'permit_empty|max_size[gambar,2048]|is_image[gambar]|mime_in[gambar,image/jpg,image/jpeg,image/png]',
+            'errors' => [
+                'max_size' => 'Ukuran gambar maksimal 2MB',
+                'is_image' => 'File harus berupa gambar',
+                'mime_in'  => 'Format gambar tidak valid',
                 ],
             ],
         ];
@@ -175,17 +185,16 @@ class Project extends BaseController
 
         $file = $this->request->getFile('gambar');
 
-        if ($file && $file->isValid() && ! $file->hasMoved()) {
-            $fileName = $file->getRandomName();
-            $file->move(WRITEPATH . 'uploads', $fileName);
+    if ($file && $file->isValid() && ! $file->hasMoved()) {
+        $fileName = $file->getRandomName();
+        $file->move(FCPATH . 'uploads', $fileName);
 
-            // hapus gambar lama
-            if ($project['gambar'] && file_exists(WRITEPATH . 'uploads/' . $project['gambar'])) {
-                unlink(WRITEPATH . 'uploads/' . $project['gambar']);
-            }
-        } else {
-            $fileName = $project['gambar'];
-        }
+        if (!empty($project['gambar']) && file_exists(FCPATH . 'uploads/' . $project['gambar'])) {
+            unlink(FCPATH . 'uploads/' . $project['gambar']);
+    }
+} else {
+    $fileName = $project['gambar'];
+}
 
 
         $namaProject = $this->request->getVar('nama_project');
