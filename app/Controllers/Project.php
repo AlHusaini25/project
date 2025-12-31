@@ -105,17 +105,18 @@ class Project extends BaseController
         // Logika hapus data
         $project = $this->projectModel->find($id);
     
-     if ($project) {
+         if ($project) {
         // Hapus file fisik sebelum hapus data di DB
-        if (!empty($project['gambar']) && file_exists(FCPATH . 'uploads/' . $project['gambar'])) {
-            unlink(FCPATH . 'uploads/' . $project['gambar']);
+            if (!empty($project['gambar']) && file_exists(FCPATH . 'uploads/' . $project['gambar'])) {
+                unlink(FCPATH . 'uploads/' . $project['gambar']);
         }
         
         $this->projectModel->delete($id);
         session()->setFlashdata('pesan', 'Data berhasil dihapus.');
     }
 
-    return redirect()->to('/project');
+        return redirect()->to('/project');
+        
     }
 
     public function edit($id)
